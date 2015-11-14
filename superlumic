@@ -73,15 +73,22 @@ function install_clt {
     fi
 }
 
-setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
+function runmac() {
+  setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
 
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
-    setStatusMessage "Install the CLT"
-    install_clt
+  if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
+      setStatusMessage "Install the CLT"
+      install_clt
+  fi
+
+}
+
+if [ "$(uname)" == "Darwin" ]; then
+  runmac
 fi
 
 # Install Ansible
