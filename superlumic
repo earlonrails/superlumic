@@ -90,7 +90,7 @@ function runmac() {
 if [ "$(uname)" == "Darwin" ]; then
   runmac
 else
-  sudo apt-get install python-setuptools
+  sudo apt-get -y install python-setuptools
 fi
 
 # Install Ansible
